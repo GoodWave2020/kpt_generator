@@ -24,18 +24,30 @@ class KptGenerator
 
   def create_problem
     puts "-------PROBLEM-------\n①今日の問題レベル(A,B,C)"
-    @p_1 = gets.chomp
-    puts "②問題点(一言で)"
-    @p_2 = gets.chomp
-    puts @copy
-    puts "#{@today} #{@name}\n①#{@p_1}\n②#{@p_2}"
+    puts "0:A, 1:B, 2:C"
+    @p_1 = gets
+    while true
+      if /^[0-9]+$/ =~ @p_1.to_s && (@p_1.to_i == 0 || @p_1.to_i == 1 || @p_1.to_i == 2)
+        @p_1 = @p_1.to_i
+        @lebel = %w(A B C)
+        puts "②問題点(一言で)"
+        @p_2 = gets
+        puts @copy
+        puts "#{@today} #{@name}\n①#{@lebel[@p_1]}\n②#{@p_2}"
+        break
+      else
+        puts "もう一度数字を入力してください。"
+        puts "0:A, 1:B, 2:C"
+        @p_1 = gets
+      end
+    end
   end
 
   def create_try
     puts "-------TRY-------\nどのように解決するか"
-    try = gets.chomp
-    puts "-----コピペしてね------"
-    puts "#{@today} #{@name}\n①#{@p_1}\n②#{@p_2}\n>#{try}"
+    try = gets
+    puts @copy
+    puts "#{@today} #{@name}\n①#{@lebel[@p_1]}\n②#{@p_2}>#{try}"
   end
 end
 
